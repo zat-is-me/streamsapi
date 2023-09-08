@@ -26,7 +26,7 @@ public class App {
         list.add(0);list.add(10);list.add(20);list.add(5);list.add(15);list.add(25);
         list.add(0);list.add(10);list.add(20);list.add(5);list.add(15);list.add(25);
 
-        list1.add("Sarina");list1.add("Sabrina");list1.add("Tatek");list1.add("Ahmed");
+        list1.add("No");list1.add("Yes");list1.add("Tatek");list1.add("Ahmed");
 
 
         //with streams

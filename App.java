@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Tatek Ahmed on 2/16/2022
@@ -44,12 +46,13 @@ public class App {
         //When we want modification of the data with the same element of the collection, we will use stream mapping method
         List<String> listStream4 = list1.stream().map(l -> l.toUpperCase()).collect(Collectors.toList());
         System.out.println(listStream4);
+        List<Integer> listStream2 = list.stream().map(l -> l*2).collect(Collectors.toList());
+        System.out.println(listStream2);
 
         //working with flatmap
         //when we want multiple mapping in the stream,
 
-        List<Integer> listStream2 = list.stream().map(l -> l*2).collect(Collectors.toList());
-        System.out.println(listStream2);
+
 
         //working with collect
         long listStream5 = list1.stream().filter(l -> l.length()>5).count();
@@ -60,7 +63,39 @@ public class App {
         System.out.println(disList);
 
         //function.identity
-//        Map<String, List<String >> idList = list1.stream().sorted().collect(Collectors)
-//        System.out.println(idList);
+        String [] nameList = {"Jai", "Naren", "Nidhi",
+                "Nidhi", "Naren", "Nidhi"};
+        String me = "TatekMohammedAhmed";
+        String name = me.toUpperCase();
+        char[] mySpel = {'t','a','t','e','k','a','h','m','e','d'};
+
+        Character[] spel = new Character[mySpel.length];
+
+        for (int i = 0; i < mySpel.length; i++) {
+            spel[i] = mySpel[i];
+        }
+        System.out.print("This are the characters: ");
+        for (Character i: spel) {
+            System.out.print(i);
+        }
+        System.out.println();
+
+        Map<Character, Long> collect1 = Arrays.stream(spel).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        System.out.println(collect1);
+
+        Character[] myName = name
+                .chars()
+                .mapToObj(c ->(char)c)
+                .toArray(Character[]::new);
+
+        Map<String, Long> collect = Arrays.stream(nameList)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        System.out.println("The occurrence of the list "+collect);
+
+        Map<Character, Long> idList =Stream.of(myName)
+                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+
+        System.out.println("My name contains" + idList);
     }
 }

@@ -15,9 +15,23 @@ import java.util.stream.Stream;
 public class App {
     public static void main(String[] args) {
 
-        ArrayList <Integer> list = new ArrayList<>();
-        ArrayList <String> list1 = new ArrayList<>();
+        //counting occurrence of letters in string
+        System.out.println(countingCharacterInString("tatekmohammedahmed"));
 
+
+        //counting occurrence of elements in the list
+        System.out.println(countingStringInStringArray(new String[]{"Jai", "Naren", "Nidhi",
+                "Nidhi", "Naren", "Nidhi"}));
+
+
+        /*working with filter,*/
+        //Selecting elements in the collection, filter method is the best.
+        ArrayList <Integer> list = new ArrayList<>();
+        list.add(0);list.add(10);list.add(20);list.add(5);list.add(15);list.add(25);list.add(4);
+        System.out.println(removingElementFromCollection(list));
+
+
+        ArrayList <String> list1 = new ArrayList<>();
          Employee[] arrayOfEmps = {
                 new Employee(1, "Jeff Bezos", 100000.0),
                 new Employee(2, "Bill Gates", 200000.0),
@@ -25,77 +39,44 @@ public class App {
         };
 
 
-        list.add(0);list.add(10);list.add(20);list.add(5);list.add(15);list.add(25);
-        list.add(0);list.add(10);list.add(20);list.add(5);list.add(15);list.add(25);
-
-        list1.add("No");list1.add("Yes");list1.add("Tatek");list1.add("Ahmed");
-
-
         //with streams
 
 
-        /*working with filter,*/
-        //when we do not want elements of the collection, we will use filter method.
-        List<String> listStream3 = list1.stream().filter(l -> l.length()>5).collect(Collectors.toList());
-        System.out.println(listStream3);
-
-        List<Integer> listStream1 = list.stream().filter(l -> l%2 ==0).collect(Collectors.toList());
-        System.out.println(listStream1);
-
         //working with mapping,
         //When we want modification of the data with the same element of the collection, we will use stream mapping method
-        List<String> listStream4 = list1.stream().map(l -> l.toUpperCase()).collect(Collectors.toList());
-        System.out.println(listStream4);
-        List<Integer> listStream2 = list.stream().map(l -> l*2).collect(Collectors.toList());
-        System.out.println(listStream2);
+
 
         //working with flatmap
         //when we want multiple mapping in the stream,
 
 
 
-        //working with collect
-        long listStream5 = list1.stream().filter(l -> l.length()>5).count();
-        System.out.println(String.format("Greater than 5 letters we found %d item/s ",listStream5));
-
         //working with distinct
         List<Integer> disList = list.stream().distinct().collect(Collectors.toList());
-        System.out.println(disList);
+        System.out.println("Finding Distinct Elements "+disList);
 
-        //function.identity
-        String [] nameList = {"Jai", "Naren", "Nidhi",
-                "Nidhi", "Naren", "Nidhi"};
-        String me = "TatekMohammedAhmed";
-        String name = me.toUpperCase();
-        char[] mySpel = {'t','a','t','e','k','a','h','m','e','d'};
+    }
 
-        Character[] spel = new Character[mySpel.length];
+    private static List<Integer> removingElementFromCollection(ArrayList<Integer> list) {
+        return list.stream()
+                .filter(integer -> integer>5)
+                .collect(Collectors.toList());
+    }
 
-        for (int i = 0; i < mySpel.length; i++) {
-            spel[i] = mySpel[i];
-        }
-        System.out.print("This are the characters: ");
-        for (Character i: spel) {
-            System.out.print(i);
-        }
-        System.out.println();
+    public static Map<Character,Long> countingCharacterInString(String name){
 
-        Map<Character, Long> collect1 = Arrays.stream(spel).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        System.out.println(collect1);
-
-        Character[] myName = name
-                .chars()
+        //Inorder to work with stream, Converted char[] to Character[]
+        Character[] myName = name.chars()
                 .mapToObj(c ->(char)c)
                 .toArray(Character[]::new);
 
-        Map<String, Long> collect = Arrays.stream(nameList)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
-        System.out.println("The occurrence of the list "+collect);
-
-        Map<Character, Long> idList =Stream.of(myName)
+        //Create stream and work in the stream.
+        return Stream.of(myName)
                 .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+    }
 
-        System.out.println("My name contains" + idList);
+    public static Map<String,Long> countingStringInStringArray(String[] nameList){
+        return Arrays.stream(nameList)
+                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
     }
 }

@@ -1,12 +1,11 @@
 package streams;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.time.Instant;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.lang.*;
 
 /**
  * @author Tatek Ahmed on 2/16/2022
@@ -14,6 +13,8 @@ import java.util.stream.Stream;
 
 public class App {
     public static void main(String[] args) {
+
+        System.currentTimeMillis();
 
         //counting occurrence of letters in string
         System.out.println(countingCharacterInString("tatekmohammedahmed"));
@@ -76,6 +77,7 @@ public class App {
     }
 
     public static Map<String,Long> countingStringInStringArray(String[] nameList){
+        System.out.printf("%f",( Instant.now()));
         return Arrays.stream(nameList)
                 .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
     }
